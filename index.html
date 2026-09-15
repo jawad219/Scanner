@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #1f1f1f, #0d0d0d);
+      color: white;
+    }
+    .card {
+      background: #1e1e1e;
+      padding: 35px 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      width: 85%;
+      max-width: 340px;
+      text-align: center;
+    }
+    .card h2 { margin: 0 0 25px; font-size: 21px; }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 14px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #2a2a2a;
+      color: white;
+      font-size: 15px;
+    }
+    input::placeholder { color: #888; }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+    button:active { background: #3d8b40; }
+    #error { color: #ff6b6b; margin-top: 12px; font-size: 14px; min-height: 18px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>🔐 QR Scanner Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <p id="error"></p>
+  </div>
+
+  <script>
+    // Pehle se saved username/password bhar do (agar hai)
+    window.addEventListener('load', function() {
+      const savedUser = localStorage.getItem('savedUsername');
+      const savedPass = localStorage.getItem('savedPassword');
+      if (savedUser) document.getElementById('username').value = savedUser;
+      if (savedPass) document.getElementById('password').value = savedPass;
+    });
+
+    document.getElementById('loginBtn').addEventListener('click', function() {
+      const u = document.getElementById('username').value;
+      const p = document.getElementById('password').value;
+
+      if (u === "Scanner" && p === "1210") {
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("savedUsername", u);
+        localStorage.setItem("savedPassword", p);
+        window.location.href = "scanner.html";
+      } else {
+        document.getElementById('error').innerText = "Galat username ya password!";
+      }
+    });
+  </script>
+</body>
+</html>
